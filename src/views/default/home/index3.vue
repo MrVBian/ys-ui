@@ -47,7 +47,6 @@ export default defineComponent({
 </script>
 
 <template>
-
   <n-grid :cols="2" item-responsive :x-gap="10" :y-gap="10">
     <n-grid-item span="2">
       <div flex="~ col">

@@ -21,10 +21,42 @@ const router = createRouter({
           },
         },
         {
-          path: "course",
-          name: "Course",
+          path: "watermark-remove",
+          name: "WatermarkRemove",
           components: {
-            default: () => import("@/views/default/course/index.vue"),
+            default: () => import("@/views/default/home/index2.vue"),
+            navbar: NavBar,
+          },
+        },
+        {
+          path: "pattern-tiling",
+          name: "PatternTiling",
+          components: {
+            default: () => import("@/views/default/home/index3.vue"),
+            navbar: NavBar,
+          },
+        },
+        {
+          path: "image-generation",
+          name: "ImageGeneration",
+          components: {
+            default: () => import("@/views/default/home/index4.vue"),
+            navbar: NavBar,
+          },
+        },
+        {
+          path: "color-transfer",
+          name: "ColorTransfer",
+          components: {
+            default: () => import("@/views/default/home/index5.vue"),
+            navbar: NavBar,
+          },
+        },
+        {
+          path: "2D-to-3D",
+          name: "2DTo3D",
+          components: {
+            default: () => import("@/views/default/home/index6.vue"),
             navbar: NavBar,
           },
         },
