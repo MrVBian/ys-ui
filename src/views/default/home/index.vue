@@ -139,53 +139,59 @@ export default defineComponent({
 
         <!-- 常见问题区域 -->
         <div class="text-center mb-2">
-          <h1 class="text-3xl font-bold mb-4">效果出众的图像增强</h1>
+          <h1 class="title text-3xl font-bold mb-4">常见问题解答</h1>
           <p class="text-lg text-gray-600 max-w-md mx-auto">
             采用先进 AI 算法，全面提升图像细节
           </p>
         </div>
-
         <div>
+          <n-layout class="faq-container">
+            <n-layout-content class="content">
+              <n-collapse accordion arrow-placement="right" class="faq-list">
+                <!-- 问题 1 -->
+                <n-collapse-item title="如何创建新账户?" name="1">
+                  <div class="answer-content">
+                    <p>您可以通过以下步骤创建新账户：</p>
+                    <ol>
+                      <li>点击页面右上角的"注册"按钮</li>
+                      <li>填写您的邮箱地址和密码</li>
+                      <li>完成邮箱验证流程</li>
+                      <li>完善您的个人资料信息</li>
+                    </ol>
+                  </div>
+                </n-collapse-item>
 
-          <n-layout class="min-h-screen">
-            <n-layout-header bordered class="h-20 bg-[#18a058] flex items-center">
-              <div class="container mx-auto px-4">
-                <n-h1 class="text-white">常见问题解答</n-h1>
-              </div>
-            </n-layout-header>
+                <!-- 问题 2 -->
+                <n-collapse-item title="忘记密码怎么办?" name="2">
+                  <div class="answer-content">
+                    <p>重置密码流程：</p>
+                    <ul>
+                      <li>在登录页面点击"忘记密码"</li>
+                      <li>输入您注册时使用的邮箱地址</li>
+                      <li>查收系统发送的密码重置邮件</li>
+                      <li>按照邮件中的指引设置新密码</li>
+                    </ul>
+                  </div>
+                </n-collapse-item>
 
-            <n-layout-content class="py-8">
-              <div class="container mx-auto px-4">
-                <n-collapse arrow-placement="right" accordion>
-                  <n-collapse-item
-                    v-for="(faq, index) in faqs"
-                    :key="index"
-                    :title="faq.question"
-                    :name="index"
-                  >
-                    <div class="faq-answer px-4 py-3 bg-[#f0f9eb] rounded">
-                      {{ faq.answer }}
-                    </div>
-                  </n-collapse-item>
-                </n-collapse>
-
-                <div class="mt-12 bg-[#f5f7fa] p-6 rounded-lg shadow-sm">
-                  <n-h3 class="mb-4 text-[#18a058]">找不到答案？</n-h3>
-                  <n-space vertical>
-                    <n-input v-model:value="newQuestion" type="textarea" placeholder="请描述您的问题..." rows="3" />
-                    <n-button type="primary" @click="submitQuestion">提交问题</n-button>
-                  </n-space>
-                </div>
-              </div>
+                <!-- 问题 3 -->
+                <n-collapse-item title="如何修改个人资料?" name="3">
+                  <div class="answer-content">
+                    <n-alert type="info" class="note-box">
+                      重要提示：邮箱修改需要验证新地址
+                    </n-alert>
+                    <p>个人资料修改步骤：</p>
+                    <ol>
+                      <li>登录您的账户</li>
+                      <li>点击右上角头像进入"个人中心"</li>
+                      <li>在"账户设置"中修改您的信息</li>
+                      <li>点击保存按钮确认修改</li>
+                    </ol>
+                  </div>
+                </n-collapse-item>
+              </n-collapse>
             </n-layout-content>
-
-            <n-layout-footer bordered class="py-6 bg-gray-100">
-              <div class="container mx-auto px-4 text-center text-gray-500">
-                Copyright © 2023 问题解答中心 | 我们随时为您服务
-              </div>
-            </n-layout-footer>
           </n-layout>
-
         </div>
 
 
@@ -194,3 +200,38 @@ export default defineComponent({
   </n-grid>
 
 </template>
+
+<style scoped>
+.faq-container {
+  max-width: 45%;
+  margin: 0px auto;
+  padding: 0 20px;
+}
+
+.content {
+  padding: 30px;
+  background-color: #fff;
+  border-radius: 8px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+}
+
+.title {
+  text-align: center;
+  color: #2d8cf0;
+  margin-bottom: 30px;
+}
+
+.faq-list {
+  margin-top: 20px;
+}
+
+.answer-content {
+  padding: 15px;
+  background-color: #f8f9fa;
+  border-radius: 4px;
+}
+
+.note-box {
+  margin-bottom: 15px;
+}
+</style>
