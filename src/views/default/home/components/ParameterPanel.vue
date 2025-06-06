@@ -229,8 +229,8 @@ const formatSize = (bytes) => {
   bottom: 4px;
   right: 4px;
   --n-color: white;
-  --n-color-hover: rgb(0, 255, 76);
-  --n-color-pressed: rgb(255, 0, 0);
+  --n-color-hover: #2080f0;
+  --n-color-pressed: #1060c9;
   --n-color-focus: #2080f0;
   --n-ripple-color: rgba(255, 255, 255, 0.2);
   --n-text-color: #2080f0;
