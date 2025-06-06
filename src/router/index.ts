@@ -56,7 +56,7 @@ const router = createRouter({
           path: "color-transfer",
           name: "ColorTransfer",
           components: {
-            default: () => import("@/views/default/home/index5.vue"),
+            default: () => import("@/views/default/color-transfer/index.vue"),
             navbar: NavBar,
           },
         },

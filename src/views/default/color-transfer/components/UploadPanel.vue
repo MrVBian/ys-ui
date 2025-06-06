@@ -1,12 +1,12 @@
 <template>
   <div class="upload-container">
     <n-upload
-      v-model:file-list="fileList"
       multiple
       directory-dnd
       :show-file-list="false"
       :custom-request="customRequest"
-      :before-upload="beforeUpload"
+      @drop="handleDrop"
+      @change="handleChange"
       @remove="handleRemove"
     >
       <n-upload-dragger class="upload-dragger">
@@ -37,47 +37,51 @@ import { CloudUploadOutline } from '@vicons/ionicons5';
 
 const emit = defineEmits(['file-added', 'file-removed']);
 const uploadStatus = ref(null);
-const fileList = ref([]); // 添加文件列表管理
-
-// 上传前检查文件类型
-const beforeUpload = (file) => {
-  if (!isImageFile(file.file)) {
-    uploadStatus.value = {
-      type: 'error',
-      message: `不支持的文件类型: ${file.file.name}。仅支持 JPG, PNG, WEBP 格式`
-    };
-    return false; // 阻止非法文件上传
-  }
-  return true;
-};
 
 // 处理自定义上传请求
 const customRequest = ({ file }) => {
-  if (!isImageFile(file.file)) return; // 再次确保安全
-    
-  emit('file-added', file.file);
+  emit('file-added', file);
   
+  // 模拟上传状态
   uploadStatus.value = {
     type: 'info',
-    message: `正在上传: ${file.file.name}`
+    message: `正在上传: ${file.name}`
   };
   
-  // 模拟上传过程
+  // 模拟上传成功
   setTimeout(() => {
     uploadStatus.value = {
       type: 'success',
-      message: `${file.file.name} 上传成功!`
+      message: `${file.name} 上传成功!`
     };
-    
-    // 上传完成后从列表中移除
-    fileList.value = fileList.value.filter(f => f.id !== file.id);
   }, 1500);
 };
 
+// 处理拖拽事件
+const handleDrop = (data) => {
+  if (data.dataTransfer?.files.length) {
+    Array.from(data.dataTransfer.files).forEach(file => {
+      if (isImageFile(file)) {
+        customRequest({ file });
+      }
+    });
+  }
+};
+
+// 处理文件变化
+const handleChange = (data) => {
+  if (data.fileList?.length) {
+    data.fileList.forEach(file => {
+      if (isImageFile(file.file)) {
+        customRequest({ file: file.file });
+      }
+    });
+  }
+};
+
 // 处理文件移除
-const handleRemove = ({ file }) => {
-  emit('file-removed', file.file);
-  fileList.value = fileList.value.filter(f => f.id !== file.id);
+const handleRemove = (data) => {
+  emit('file-removed', data.file.file);
 };
 
 // 检查是否为图片文件
