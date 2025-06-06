@@ -21,6 +21,14 @@ const router = createRouter({
           },
         },
         {
+          path: "image-enhancement",
+          name: "ImageEnhancement",
+          components: {
+            default: () => import("@/views/default/home/index.vue"),
+            navbar: NavBar,
+          },
+        },
+        {
           path: "watermark-remove",
           name: "WatermarkRemove",
           components: {
