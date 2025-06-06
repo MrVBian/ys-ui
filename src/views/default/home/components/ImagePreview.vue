@@ -12,10 +12,10 @@
       >
         <n-image
           :src="image.url"
+          :preview-src="image.url"
           object-fit="cover"
           class="thumbnail"
           preview-disabled
-          @click="previewImage(image.url)"
         />
         
         <div class="image-overlay">
@@ -23,47 +23,49 @@
             circle
             size="small"
             type="error"
-            @click.stop="removeImage(index)"
+            @click="removeImage(index)"
             class="remove-btn"
           >
             <template #icon>
               <n-icon><TrashOutline /></n-icon>
             </template>
           </n-button>
+          
+          <n-button 
+            circle
+            size="small"
+            type="primary"
+            @click="previewImage(image.url)"
+            class="view-btn"
+          >
+            <template #icon>
+              <n-icon><EyeOutline /></n-icon>
+            </template>
+          </n-button>
         </div>
       </div>
     </div>
     
-    <n-image-preview
-      v-model:show="showPreview"
-      :show-toolbar="true"
-      :image-props="{ objectFit: 'contain' }"
-      :theme-overrides="previewTheme"
-    >
-      <template #toolbar="{ node, index }">
-        <div class="preview-toolbar">
-          <n-icon size="20" :color="previewTheme.toolbarColor" class="toolbar-icon">
-            <ArrowExpandOutline />
-          </n-icon>
-          <span class="preview-counter">{{ index + 1 }} / {{ imageList.length }}</span>
-          <n-icon 
-            size="20" 
-            :color="previewTheme.toolbarColor" 
-            class="toolbar-icon close-icon"
-            @click="showPreview = false"
-          >
-            <CloseOutline />
-          </n-icon>
-        </div>
-      </template>
-    </n-image-preview>
+    <n-modal v-model:show="showPreview">
+      <n-image
+        :src="currentPreview"
+        :preview-src="currentPreview"
+        object-fit="contain"
+        class="full-preview"
+      />
+    </n-modal>
+
+
+    
+
+    
   </div>
 </template>
 
 <script setup>
 import { ref, computed } from 'vue';
-import { NImage, NButton, NImagePreview, NIcon, NText } from 'naive-ui';
-import { TrashOutline, ArrowExpandOutline, CloseOutline } from '@vicons/ionicons5';
+import { NImage, NButton, NModal, NIcon, NText } from 'naive-ui';
+import { EyeOutline, TrashOutline } from '@vicons/ionicons5';
 
 const props = defineProps({
   images: {
@@ -81,15 +83,6 @@ const imageList = computed(() => {
     ...image,
     id: `${Date.now()}-${idx}`
   }));
-});
-
-const previewTheme = ref({
-  iconColor: 'rgba(255,255,255,0.9)',
-  toolbarColor: 'rgba(255,255,255,0.9)',
-  toolbarBoxShadow: '0px 4px 12px rgba(0,0,0,0.4)',
-  toolbarBorderRadius: '12px',
-  toolbarBackgroundColor: 'rgba(40,40,40,0.8)',
-  zIndex: 1000
 });
 
 const previewImage = (url) => {
@@ -130,7 +123,6 @@ const removeImage = (index) => {
   overflow: hidden;
   box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
   transition: transform 0.2s;
-  cursor: pointer;
 }
 
 .image-item:hover {
@@ -150,57 +142,28 @@ const removeImage = (index) => {
 
 .image-overlay {
   position: absolute;
-  top: 0;
   bottom: 0;
   left: 0;
   right: 0;
+  padding: 8px;
+  background: rgba(0, 0, 0, 0.4);
   display: flex;
   justify-content: center;
-  align-items: center;
-  background: rgba(0, 0, 0, 0.4);
+  gap: 8px;
   opacity: 0;
   transition: opacity 0.3s;
 }
 
-.remove-btn {
-  --n-icon-size: 16px;
-  --n-color: rgba(255, 255, 255, 0.9);
-  --n-color-pressed: #fff;
-  --n-color-focus: #fff;
-  --n-color-hover: #fff;
-  background-color: rgba(220, 53, 69, 0.85);
-  border-radius: 10px;
-  box-shadow: 0 2px 4px rgba(0,0,0,0.3);
+.remove-btn, .view-btn {
+  --n-color: rgba(255, 255, 255, 0.8);
+  --n-color-hover: rgb(255, 255, 255);
 }
 
-.remove-btn:hover {
-  background-color: rgba(220, 53, 69, 1);
-  transform: scale(1.1);
-}
 
-.preview-toolbar {
-  display: flex;
-  align-items: center;
-  padding: 8px 16px;
-  gap: 16px;
-}
-
-.preview-counter {
-  color: rgba(255,255,255,0.9);
-  font-size: 14px;
-  font-weight: 500;
-}
-
-.toolbar-icon {
-  transition: all 0.3s;
-  cursor: pointer;
-}
-
-.toolbar-icon:hover {
-  transform: scale(1.15);
-}
-
-.close-icon:hover {
-  color: #ff6b6b;
+.full-preview {
+  width: 100%;
+  height: 100%;
+  max-width: 90vw;
+  max-height: 90vh;
 }
 </style>
