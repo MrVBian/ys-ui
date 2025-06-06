@@ -68,46 +68,6 @@ const router = createRouter({
             navbar: NavBar,
           },
         },
-        {
-          path: "exam/type/:key/:index?",
-          name: "ExamDetail",
-          components: {
-            default: () => import("@/views/default/exam/index.vue"),
-            navbar: () => import("@/views/default/exam/navbar.vue"),
-          },
-          meta: {
-            noFooter: true,
-            noPadding: true,
-          },
-        },
-        {
-          path: "problems",
-          name: "Problems",
-          components: {
-            default: () => import("@/views/default/problem/index.vue"),
-            navbar: NavBar,
-          },
-        },
-        {
-          path: "problems/:problemId(\\d+)",
-          name: "ProblemDetail",
-          components: {
-            default: () => import("@/views/default/problem/detail.vue"),
-            navbar: () => import("@/views/default/problem/navbar.vue"),
-          },
-          meta: {
-            noFooter: true,
-            noPadding: true,
-          },
-        },
-        {
-          path: "users/:uid",
-          name: "UserDetail",
-          components: {
-            default: () => import("@/views/default/home/index.vue"),
-            navbar: NavBar,
-          },
-        },
       ],
     },
     {
