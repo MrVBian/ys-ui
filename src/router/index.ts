@@ -68,6 +68,22 @@ const router = createRouter({
             navbar: NavBar,
           },
         },
+        {
+          path: "account",
+          name: "Account",
+          components: {
+            default: () => import("@/views/default/account/index.vue"),
+            navbar: NavBar,
+          },
+        },
+        {
+          path: "dashboard",
+          name: "Dashboard",
+          components: {
+            default: () => import("@/views/default/dashboard/index.vue"),
+            navbar: NavBar,
+          },
+        },
       ],
     },
     {

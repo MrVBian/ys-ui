@@ -2,13 +2,16 @@
 import { watch, ref, computed } from "vue";
 import { Person24Regular, Password24Regular } from "@vicons/fluent";
 import {
-  userInfo,
+  // userInfo,
   useSharedAuthModal,
   userLogin,
   userLogout,
   hasPermissionPrefix,
   type LoginData,
 } from "@/composables/auth";
+
+import { userInfo } from '@/data/exam'
+
 
 const options = computed(() => [
   {

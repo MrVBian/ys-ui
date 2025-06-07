@@ -2,7 +2,7 @@
 import { h } from "vue";
 import type { MenuOption } from "naive-ui";
 import Right from "./right.vue";
-import { renderIcon } from "@/utils/render";
+import { AvatarDropdown } from "./components";
 
 
 const menuOptions: MenuOption[] = [
@@ -48,6 +48,6 @@ const menuOptions: MenuOption[] = [
       responsive
       @update:value="(key) => $router.push({ name: key })"
     />
-    <right />
+    <AvatarDropdown />
   </div>
 </template>

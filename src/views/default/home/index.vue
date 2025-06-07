@@ -1,4 +1,4 @@
-<script lang="ts">
+<script lang="ts" setup>
 
 import { defineComponent, ref, onMounted } from 'vue'
 
@@ -12,33 +12,21 @@ import ImageCompare from "image-compare-viewer";
 import 'image-compare-viewer/dist/image-compare-viewer.min.css';
 
 
-export default defineComponent({
-  components: {
-    MdArrowRoundBack,
-    MdArrowRoundForward,
-    ArchiveIcon,
-  },
-  setup() {
-    const currentRef = ref<number | null>(1)
-    
-    // 初始化图片比较器
-    onMounted(() => {
-      const element = document.getElementById('image-compare');
-      if (element) {
-        new ImageCompare(element, {
-          // 在这里添加配置选项（可选）
-          controlColor: "#FFFFFF",
-          controlShadow: true,
-          addCircle: true,
-          showLabels: true,
-          labelOptions: {
-            before: '效果图',
-            after: '原始图',
-          }
-        }).mount();
-      }
-    });
 
+// 初始化图片比较器
+onMounted(() => {
+  const element = document.getElementById('image-compare')
+  if (element) {
+    new ImageCompare(element, {
+      controlColor: "#FFFFFF",
+      controlShadow: true,
+      addCircle: true,
+      showLabels: true,
+      labelOptions: {
+        before: '效果图',
+        after: '原始图'
+      }
+    }).mount()
   }
 })
 
@@ -64,8 +52,6 @@ export default defineComponent({
               multiple
               directory-dnd
               action="https://请求提交地址"
-              :default-file-list="previewFileList"
-              
             >
             <n-upload-dragger>
               <div style="margin-bottom: 12px">

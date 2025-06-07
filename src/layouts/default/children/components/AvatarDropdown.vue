@@ -70,7 +70,17 @@
             <n-icon size="20" color="#ed4014"><ChatboxEllipsesOutline /></n-icon>
             <span>在线客服：工作日 9:00-18:00</span>
           </div>
+          <div class="contact-method">
+            <n-icon size="20" color="#19be6b"><LogoWechat /></n-icon>
+            <span>微信二维码：</span>
+          </div>
         </n-space>
+        <n-image
+          width="200"
+          src="/public/example/QRCode.png"
+        />
+
+        <!--
         <n-divider />
         <n-form :model="contactForm" label-placement="top">
           <n-form-item label="问题描述">
@@ -82,11 +92,12 @@
             />
           </n-form-item>
         </n-form>
+         -->
       </div>
       <template #footer>
         <n-space justify="end">
-          <n-button @click="showContactModal = false">取消</n-button>
-          <n-button type="primary" @click="submitContactForm">提交</n-button>
+          <n-button @click="showContactModal = false">关闭</n-button>
+          <!-- <n-button type="primary" @click="submitContactForm">提交</n-button>  -->
         </n-space>
       </template>
     </n-card>
@@ -110,16 +121,14 @@ import {
   useMessage
 } from 'naive-ui';
 import {
-  BookOutline as PurchaseIcon,
-  DocumentTextOutline as ReportIcon,
-  ImagesOutline as HistoryIcon,
-  LockClosedOutline as PasswordIcon,
-  ChatboxEllipsesOutline as SupportIcon,
-  LogOutOutline as LogoutIcon,
   CloseOutline,
   CallOutline,
-  MailOutline
+  MailOutline,
+  ChatboxEllipsesOutline,
+  LogoWechat
 } from '@vicons/ionicons5';
+import { useRouter } from 'vue-router';
+
 
 // 用户信息模拟数据
 const userAvatar = ref('https://07akioni.oss-cn-beijing.aliyuncs.com/07akioni.jpeg');
@@ -142,19 +151,12 @@ const message = useMessage();
 // 菜单配置
 const menuOptions = ref([
   {
-    label: '购买记录',
-    key: 'purchase',
-    icon: PurchaseIcon
+    label: '个人中心',
+    key: 'account',
   },
   {
-    label: '使用报告',
-    key: 'report',
-    icon: ReportIcon
-  },
-  {
-    label: '历史作品',
-    key: 'history',
-    icon: HistoryIcon
+    label: '后台管理',
+    key: 'dashboard',
   },
   {
     type: 'divider',
@@ -163,12 +165,10 @@ const menuOptions = ref([
   {
     label: '找回密码',
     key: 'password',
-    icon: PasswordIcon
   },
   {
     label: '联系客服',
     key: 'support',
-    icon: SupportIcon
   },
   {
     type: 'divider',
@@ -177,7 +177,6 @@ const menuOptions = ref([
   {
     label: '退出登录',
     key: 'logout',
-    icon: LogoutIcon,
     props: {
       style: { color: '#d03050' }
     }
@@ -187,14 +186,11 @@ const menuOptions = ref([
 // 菜单选择处理
 const handleSelect = (key: string) => {
   switch (key) {
-    case 'purchase':
-      navigateToPurchase();
+    case 'account':
+      navigateToAccount();
       break;
-    case 'report':
-      navigateToReport();
-      break;
-    case 'history':
-      navigateToHistory();
+    case 'dashboard':
+      navigateToDashboard();
       break;
     case 'password':
       showPasswordModal.value = true;
@@ -208,20 +204,18 @@ const handleSelect = (key: string) => {
   }
 };
 
+const router = useRouter();
 // 页面导航功能
-const navigateToPurchase = () => {
-  message.info('跳转到购买记录页面');
-  // 实际项目中使用 router.push('/purchase')
+const navigateToAccount = () => {
+  message.info('跳转到个人中心页面');
+  router.push('/account');
+  // 实际项目中使用 router.push('/account')
 };
 
-const navigateToReport = () => {
-  message.info('跳转到使用报告页面');
+const navigateToDashboard = () => {
+  message.info('跳转到后台管理页面');
+  router.push('/dashboard');
   // router.push('/report')
-};
-
-const navigateToHistory = () => {
-  message.info('跳转到历史作品页面');
-  // router.push('/history')
 };
 
 // 找回密码功能
